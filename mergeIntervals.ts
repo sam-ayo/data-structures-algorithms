@@ -1,0 +1,3 @@
+function mergeInterval(number[][]): number[][]{
+    
+}
