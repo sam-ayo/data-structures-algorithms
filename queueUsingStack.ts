@@ -1,40 +1,45 @@
 class MyQueue {
-    firstStack: number[]
-    secondStack: number[]
+    private firstStack: number[]
+    private secondStack: number[]
 
     constructor() {
         this.firstStack = []
         this.secondStack = []
     }
-    private emptySecondStack(){
-        if(this.secondStack.length > 0) this.secondStack = [];
-    }
 
     push(x: number): void {
         this.firstStack.push(x)
     }
+
     pop(): number {
-        this.emptySecondStack();
-        for(let i = 0; i< this.firstStack.length; i++){
-            this.secondStack.push(this.firstStack[i]);
+        while(this.firstStack.length > 0){
+            const currNum = this.firstStack.pop() as number;
+            this.secondStack.push(currNum);
         }
-        if(this.secondStack.length === 0) return -1 
-        const num = this.secondStack.pop() as number;
-        return num;
+        const queueTop = this.secondStack.pop() as number;
+        while(this.secondStack.length > 0){
+            const currNum = this.secondStack.pop() as number;
+            this.firstStack.push(currNum)
+        }
+        return queueTop;
     }
+
     peek(): number {
-        this.emptySecondStack();
-        for(let i = 0; i< this.firstStack.length; i++){
-            this.secondStack.push(this.firstStack[i]);
+        while(this.firstStack.length > 0){
+            const currNum = this.firstStack.pop() as number;
+            this.secondStack.push(currNum);
         }
-        if(this.secondStack.length === 0) return -1;
-        const firstElement = this.secondStack[this.secondStack.length-1];
-        return firstElement
+        const queueTop = this.secondStack.pop() as number;
+        this.secondStack.push(queueTop);
+        while(this.secondStack.length > 0){
+            const currNum = this.secondStack.pop() as number;
+            this.firstStack.push(currNum)
+        }
+        return queueTop;
     }
 
     empty(): boolean {
-        if(this.firstStack.length === 0) return true;
-        return false;
+        return this.firstStack.length === 0 && this.secondStack.length === 0;
     }
 }
 

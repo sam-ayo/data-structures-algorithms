@@ -1,9 +1,8 @@
 var solution = function(isBadVersion: any) {
-
     return function(n: number): number {
         let left = 1;
         let right = n;
-        let mid;
+        let mid: number;
         while(left <= right){
             mid = Math.floor((left + right) /2);
             if(isBadVersion(mid) && !isBadVersion(mid-1)) return mid;
@@ -13,9 +12,7 @@ var solution = function(isBadVersion: any) {
             else{
                 left = mid + 1
             }
-
         }
-        return mid;
+        return mid!;
     };
-
 };
