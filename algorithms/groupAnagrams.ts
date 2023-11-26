@@ -23,7 +23,3 @@ function groupAnagrams(strs: string[]):string[][]{
         count++;
     }
 }
-{
-    1: [eat],
-    2: [tan]
-}
